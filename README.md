@@ -15,3 +15,6 @@
 - configure Store => Provider => createSlice => add reducer to store
 - Add redux dev tool in chrome 
 - Refactor our code to add constant file  + crate a component folder
+
+- You should not have access to other routes without login 
+- If token is not present, redirect user to login page.
