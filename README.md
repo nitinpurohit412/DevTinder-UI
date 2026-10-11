@@ -18,3 +18,5 @@
 
 - You should not have access to other routes without login 
 - If token is not present, redirect user to login page.
+- Edit profile feature
+- Show toast message on save profile.
