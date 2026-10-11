@@ -65,11 +65,11 @@ const Connections = () => {
           /* Connection Cards */
           <div className="space-y-4">
             {connections.map((connection) => {
-              const { firstName, lastName, age, gender, about, photoUrl } =
+              const { _id, firstName, lastName, age, gender, about, photoUrl } =
                 connection;
 
               return (
-                <div className="group flex flex-col gap-5 rounded-2xl border border-neutral-800 bg-neutral-950 p-5 transition duration-200 hover:border-neutral-700 sm:flex-row sm:items-center sm:p-6">
+                <div key={_id} className="group flex flex-col gap-5 rounded-2xl border border-neutral-800 bg-neutral-950 p-5 transition duration-200 hover:border-neutral-700 sm:flex-row sm:items-center sm:p-6">
                   {/* Profile Photo */}
                   <div className="shrink-0">
                     <img
