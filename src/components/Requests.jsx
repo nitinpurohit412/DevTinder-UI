@@ -1,21 +1,29 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
-import { addRequests } from "../utils/requestSlice";
+import { addRequests, removeRequest } from "../utils/requestSlice";
 import { useEffect } from "react";
 
 const Requests = () => {
   const dispatch = useDispatch();
   const requests = useSelector((store) => store.requests);
 
+  const reviewRequest = async (status, _id) => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/request/review/" + status + "/" + _id,
+        {},
+        { withCredentials: true },
+      );
+      dispatch(removeRequest(_id))
+    } catch (err) {}
+  };
+
   const fetchRequest = async () => {
     try {
-      const res = await axios.get(
-        BASE_URL + "/user/requests/received",
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.get(BASE_URL + "/user/requests/received", {
+        withCredentials: true,
+      });
 
       dispatch(addRequests(res?.data?.data || []));
     } catch (err) {
@@ -30,7 +38,6 @@ const Requests = () => {
   return (
     <div className="min-h-screen bg-black px-4 py-10 text-white sm:px-8">
       <div className="mx-auto max-w-5xl">
-
         {/* Header */}
         <div className="mb-8 border-b border-neutral-800 pb-6">
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
@@ -69,14 +76,8 @@ const Requests = () => {
           /* Request Cards */
           <div className="space-y-4">
             {requests.map((request) => {
-              const {
-                firstName,
-                lastName,
-                age,
-                gender,
-                about,
-                photoUrl,
-              } = request.fromUserId || {};
+              const { firstName, lastName, age, gender, about, photoUrl } =
+                request.fromUserId || {};
 
               return (
                 <div
@@ -106,19 +107,14 @@ const Requests = () => {
                   {/* User Details */}
                   <div className="min-w-0 flex-1 text-center sm:text-left">
                     <h2 className="break-words text-xl font-semibold tracking-tight text-white">
-                      {[firstName, lastName]
-                        .filter(Boolean)
-                        .join(" ") || "Unknown User"}
+                      {[firstName, lastName].filter(Boolean).join(" ") ||
+                        "Unknown User"}
                     </h2>
 
-                    {(age != null && age !== "" || gender) && (
+                    {((age != null && age !== "") || gender) && (
                       <p className="mt-1 text-sm capitalize text-neutral-500">
-                        {age != null && age !== ""
-                          ? `${age} years old`
-                          : ""}
-                        {age != null && age !== "" && gender
-                          ? " · "
-                          : ""}
+                        {age != null && age !== "" ? `${age} years old` : ""}
+                        {age != null && age !== "" && gender ? " · " : ""}
                         {gender || ""}
                       </p>
                     )}
@@ -129,8 +125,7 @@ const Requests = () => {
                       </p>
 
                       <p className="break-words text-sm leading-6 text-neutral-400">
-                        {about?.trim() ||
-                          "This user hasn't added a bio yet."}
+                        {about?.trim() || "This user hasn't added a bio yet."}
                       </p>
                     </div>
 
@@ -147,12 +142,14 @@ const Requests = () => {
                   <div className="flex w-full shrink-0 flex-col gap-3 sm:w-32 sm:self-start">
                     <button
                       className="rounded-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-500"
+                      onClick={() => reviewRequest("accepted", request._id)}
                     >
                       Accept
                     </button>
 
                     <button
                       className="rounded-xl border border-neutral-700 bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-neutral-300 transition-colors hover:border-red-800 hover:bg-red-950/40 hover:text-red-400"
+                      onClick={() => reviewRequest("rejected", request._id)}
                     >
                       Reject
                     </button>
