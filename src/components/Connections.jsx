@@ -26,7 +26,34 @@ const Connections = () => {
 
   if (!connections) return;
 
-  if (connections.length === 0) return <h1>No Connections Found !!!!</h1>;
+  if (connections.length === 0)
+    return (
+      <div className="flex min-h-[80vh] items-center justify-center bg-black px-4 text-white">
+        <div className="w-full max-w-md rounded-2xl border border-neutral-800 bg-neutral-950 px-6 py-14 text-center">
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-neutral-800 bg-neutral-900 text-3xl">
+            👥
+          </div>
+
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+            Your Network
+          </p>
+
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            No connections yet
+          </h1>
+
+          <p className="mx-auto mt-3 max-w-sm text-sm leading-6 text-neutral-400">
+            Your network is just getting started. Discover developers, send
+            connection requests, and build meaningful connections.
+          </p>
+
+          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-green-800/50 bg-green-950/30 px-4 py-2 text-sm font-medium text-green-400">
+            <span className="h-2 w-2 rounded-full bg-green-400" />
+            Your next connection awaits
+          </div>
+        </div>
+      </div>
+    );
 
   return (
     <div className="min-h-screen bg-black px-4 py-10 text-white sm:px-8">
@@ -69,7 +96,10 @@ const Connections = () => {
                 connection;
 
               return (
-                <div key={_id} className="group flex flex-col gap-5 rounded-2xl border border-neutral-800 bg-neutral-950 p-5 transition duration-200 hover:border-neutral-700 sm:flex-row sm:items-center sm:p-6">
+                <div
+                  key={_id}
+                  className="group flex flex-col gap-5 rounded-2xl border border-neutral-800 bg-neutral-950 p-5 transition duration-200 hover:border-neutral-700 sm:flex-row sm:items-center sm:p-6"
+                >
                   {/* Profile Photo */}
                   <div className="shrink-0">
                     <img

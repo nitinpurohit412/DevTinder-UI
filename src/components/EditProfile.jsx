@@ -8,11 +8,11 @@ import { BASE_URL } from "../utils/constant";
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
-  const [age, setAge] = useState(user.age);
-  const [gender, setGender] = useState(user.gender);
-  const [about, setAbout] = useState(user.about);
+  const [age, setAge] = useState(user.age || "");
+  const [gender, setGender] = useState(user.gender || "");
+  const [about, setAbout] = useState(user.about || "");
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
-  const [showToast, setShowToast] = useState(false)
+  const [showToast, setShowToast] = useState(false);
   const dispatch = useDispatch();
 
   const [error, setError] = useState("");
@@ -25,9 +25,9 @@ const EditProfile = ({ user }) => {
         { withCredentials: true },
       );
       dispatch(addUser(res?.data?.data));
-      setShowToast(true)
+      setShowToast(true);
       setTimeout(() => {
-        setShowToast(false)
+        setShowToast(false);
       }, 3000);
     } catch (err) {
       setError(err.message);
@@ -195,11 +195,13 @@ const EditProfile = ({ user }) => {
           </div>
         </div>
       </div>
-     {showToast && <div className="toast toast-top toast-center">
-        <div className="alert alert-success">
-          <span>Profile updated successfully.</span>
+      {showToast && (
+        <div className="toast toast-top toast-center z-[9999]">
+          <div className="alert border border-green-700 bg-neutral-900 text-green-400 shadow-xl">
+            <span>✓ Profile updated successfully.</span>
+          </div>
         </div>
-      </div>}
+      )}
     </div>
   );
 };
