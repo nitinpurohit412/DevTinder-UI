@@ -97,7 +97,6 @@ cd backend
 npm install
 ```
 
-> Adjust `frontend` and `backend` to match your actual folder names.
 
 ### 3. Configure environment variables
 
