@@ -161,33 +161,6 @@ The following endpoints reflect the routes used by the application. Authenticati
 
 ---
 
-## 📁 Project Structure
-
-A typical project structure may look like this:
-
-devTinder/
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── utils/
-│   │   └── App.jsx
-│   └── package.json
-│
-├── backend/
-│   ├── src/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   ├── middlewares/
-│   │   └── app.js
-│   ├── .env
-│   └── package.json
-│
-└── README.md
-
-
----
-
 ## 🎯 Project Goals
 
 DevTinder was built as a full-stack learning project to practice:
