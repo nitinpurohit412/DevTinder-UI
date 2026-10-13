@@ -97,7 +97,6 @@ cd backend
 npm install
 ```
 
-> Adjust `frontend` and `backend` to match your actual folder names.
 
 ### 3. Configure environment variables
 
@@ -159,33 +158,6 @@ The following endpoints reflect the routes used by the application. Authenticati
 - Never commit your `.env` file.
 - Configure CORS and cookie settings appropriately for your deployment.
 - Validate incoming data and protect authenticated routes on the backend.
-
----
-
-## 📁 Project Structure
-
-A typical project structure may look like this:
-
-devTinder/
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── utils/
-│   │   └── App.jsx
-│   └── package.json
-│
-├── backend/
-│   ├── src/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   ├── middlewares/
-│   │   └── app.js
-│   ├── .env
-│   └── package.json
-│
-└── README.md
-
 
 ---
 
