@@ -121,6 +121,14 @@ const NavBar = () => {
                 <span>Connection Requests</span>
               </Link>
             </li>
+            <li>
+              <Link
+                to="/premium"
+                className="rounded-xl py-3 transition-colors hover:bg-neutral-900 hover:text-white"
+              >
+                <span>Premium</span>
+              </Link>
+            </li>
 
             <div className="my-2 border-t border-neutral-800" />
 
