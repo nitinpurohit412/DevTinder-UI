@@ -1,7 +1,23 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constant";
+import { useState } from "react";
 
 const Premium = () => {
+
+    const [isUserPremium, setIsUserPremium] = useState(false)
+
+  const verifyPremiumUser = async () => {
+    const res = await axios.get(BASE_URL + "/premium/verify", {
+      withCredentials: true,
+    });
+
+    if(res.data.ispremium){
+        setIsUserPremium(true)
+    }
+
+
+  };
+
   const handleBuyClick = async (type) => {
     const order = await axios.post(
       BASE_URL + "/payment/create",
@@ -11,31 +27,32 @@ const Premium = () => {
       { withCredentials: true },
     );
 
-    const {amount, keyId, currency,notes, orderId} = order.data
+    const { amount, keyId, currency, notes, orderId } = order.data;
 
     const options = {
-        key: keyId, // Replace with your Razorpay key_id
-        amount: amount, // Amount is in currency subunits.
-        currency: 'INR',
-        name: 'Dev Tinder',
-        description: 'Connect ot other developers.',
-        order_id: orderId, // This is the order_id created in the backend
-        prefill: {
-          name: notes.firsName + " " + notes.lastName,
-          email: notes.emailId,
-          contact: '9999999999'
-        },
-        theme: {
-          color: '#F37254'
-        },
-      };
+      key: keyId, // Replace with your Razorpay key_id
+      amount: amount, // Amount is in currency subunits.
+      currency: "INR",
+      name: "Dev Tinder",
+      description: "Connect ot other developers.",
+      order_id: orderId, // This is the order_id created in the backend
+      prefill: {
+        name: notes.firsName + " " + notes.lastName,
+        email: notes.emailId,
+        contact: "9999999999",
+      },
+      theme: {
+        color: "#F37254",
+      },
+      handle : verifyPremiumUser,
+    };
 
     //* This will open your razorpay dashboard
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
 
-  return (
+  return isUserPremium ? ("You are already  a premium user") : (
     <div className="min-h-screen bg-black px-4 py-14 text-white sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         {/* Header */}
