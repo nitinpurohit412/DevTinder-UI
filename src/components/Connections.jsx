@@ -3,6 +3,7 @@ import { BASE_URL } from "../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnection } from "../utils/connectionSlice";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Connections = () => {
   const connections = useSelector((store) => store.connections);
@@ -60,31 +61,31 @@ const Connections = () => {
       <div className="mx-auto max-w-5xl">
         {/* Header */}
         <div className="mb-10 border-b border-neutral-800 pb-6">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-neutral-500">
             Your Network
           </p>
 
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             My Connections
           </h1>
 
-          <p className="mt-3 text-sm text-neutral-400 sm:text-base">
+          <p className="mt-3 text-sm leading-6 text-neutral-400 sm:text-base">
             All the people you're connected with, in one place.
           </p>
         </div>
 
         {/* Empty State */}
         {connections.length === 0 ? (
-          <div className="rounded-2xl border border-neutral-800 bg-neutral-950 px-6 py-16 text-center">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-neutral-800 bg-neutral-900 text-2xl text-neutral-400">
+          <div className="rounded-3xl border border-neutral-800 bg-neutral-950 px-6 py-16 text-center shadow-xl shadow-black/20">
+            <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-neutral-800 bg-neutral-900 text-2xl text-neutral-300">
               👥
             </div>
 
-            <h2 className="text-lg font-semibold text-white">
+            <h2 className="text-lg font-semibold tracking-tight text-white">
               No connections yet
             </h2>
 
-            <p className="mt-2 text-sm text-neutral-500">
+            <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-neutral-500">
               Your connections will appear here when you connect with people.
             </p>
           </div>
@@ -98,7 +99,7 @@ const Connections = () => {
               return (
                 <div
                   key={_id}
-                  className="group flex flex-col gap-5 rounded-2xl border border-neutral-800 bg-neutral-950 p-5 transition duration-200 hover:border-neutral-700 sm:flex-row sm:items-center sm:p-6"
+                  className="group flex flex-col gap-5 rounded-2xl border border-neutral-800 bg-neutral-950 p-5 transition-all duration-300 hover:border-neutral-600 hover:bg-neutral-900/70 sm:flex-row sm:items-center sm:p-6"
                 >
                   {/* Profile Photo */}
                   <div className="shrink-0">
@@ -116,13 +117,13 @@ const Connections = () => {
                         e.currentTarget.src =
                           "https://placehold.co/160x160/262626/FFFFFF?text=User";
                       }}
-                      className="h-24 w-24 rounded-2xl border border-neutral-800 bg-neutral-900 object-cover sm:h-28 sm:w-28"
+                      className="mx-auto h-24 w-24 rounded-2xl border border-neutral-800 bg-neutral-900 object-cover shadow-lg shadow-black/20 transition duration-300 group-hover:border-neutral-600 sm:mx-0 sm:h-28 sm:w-28"
                     />
                   </div>
 
                   {/* User Details */}
                   <div className="min-w-0 flex-1 text-center sm:text-left">
-                    <h2 className="break-words text-xl font-semibold tracking-tight text-white">
+                    <h2 className="break-words text-xl font-semibold tracking-tight text-white transition-colors group-hover:text-neutral-200">
                       {[firstName, lastName].filter(Boolean).join(" ") ||
                         "Unknown User"}
                     </h2>
@@ -140,12 +141,18 @@ const Connections = () => {
                     </p>
                   </div>
 
-                  {/* Connection Status */}
-                  <div className="shrink-0 self-center sm:self-start">
-                    <span className="inline-flex items-center gap-2 rounded-full border border-green-800/50 bg-green-950/50 px-3 py-2 text-xs font-medium text-green-400">
-                      <span className="h-1.5 w-1.5 rounded-full bg-green-400"></span>
+                  {/* Connection Status + Chat */}
+                  <div className="flex shrink-0 flex-col items-center gap-3 sm:items-end">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-green-800/60 bg-green-950/40 px-4 py-2 text-xs font-semibold text-green-400 shadow-sm shadow-green-950/20">
+                      <span className="h-2 w-2 rounded-full bg-green-400"></span>
                       Connected
-                    </span>
+                    </div>
+
+                    <Link to={"/chat/" + _id}>
+                      <button className="btn h-11 min-h-0 w-full rounded-xl border border-blue-500 bg-blue-600 px-8 text-sm font-semibold text-white shadow-lg shadow-blue-950/30 transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-400 hover:bg-blue-500 hover:shadow-xl hover:shadow-blue-900/30 active:translate-y-0 active:scale-[0.97] sm:w-auto" >
+                        Chat
+                      </button>
+                    </Link>
                   </div>
                 </div>
               );
